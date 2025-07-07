@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <display-name>EasyRide</display-name>
+    <description>Sistema di noleggio veicoli EasyRide</description>
+
+    <!-- ===== SERVLET MAPPING ===== -->
+    
+    <!-- ✅ TUTTI I SERVLET USANO @WebServlet - Nessuna definizione nel web.xml -->
+    <!-- CheckoutServlet, CarrelloServlet, LoginServlet, PrenotazioneServlet, -->
+    <!-- CatalogoServlet, RegistrazioneServlet sono tutti definiti con @WebServlet -->
+
+    <!-- ===== CONFIGURAZIONE RISORSE STATICHE ===== -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/styles/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/scripts/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.css</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.gif</url-pattern>
+    </servlet-mapping>
+
+    <!-- ===== CONFIGURAZIONE SESSIONE ===== -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure> <!-- Cambia in true per HTTPS -->
+        </cookie-config>
+    </session-config>
+
+    <!-- ===== PAGINE DI ERRORE ===== -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/error/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/error/500.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/WEB-INF/views/error/general-error.jsp</location>
+    </error-page>
+
+    <!-- ===== MIME TYPES ===== -->
+    <mime-mapping>
+        <extension>css</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>
+
+    <mime-mapping>
+        <extension>js</extension>
+        <mime-type>application/javascript</mime-type>
+    </mime-mapping>
+
+    <mime-mapping>
+        <extension>json</extension>
+        <mime-type>application/json</mime-type>
+    </mime-mapping>
+
+    <mime-mapping>
+        <extension>jpg</extension>
+        <mime-type>image/jpeg</mime-type>
+    </mime-mapping>
+
+    <mime-mapping>
+        <extension>png</extension>
+        <mime-type>image/png</mime-type>
+    </mime-mapping>
+
+    <!-- ===== WELCOME FILES ===== -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>home.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- ===== CONTEXT PARAMETERS ===== -->
+    <context-param>
+        <param-name>app-name</param-name>
+        <param-value>EasyRide</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>app-version</param-name>
+        <param-value>1.0.0</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>checkout-enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>email-notifications</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <!-- ===== FILTRI DI SICUREZZA (OPZIONALI) ===== -->
+    
+    <!-- Filtro CORS per API (se necessario) -->
+    <!--
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>it.easyridedb.filter.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+    -->
+
+    <!-- Filtro encoding UTF-8 -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+</web-app>
